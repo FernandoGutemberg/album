@@ -1,5 +1,5 @@
 import FotoAmpliada from './components/FotoAmpliada';
-import Fotolist from './components/Fotolist';
+import FotoList from './components/FotoList';
 import Searchbar from './components/Searchbar';
 
 import { useState, useEffect } from 'react';
@@ -10,6 +10,7 @@ function App() {
 
   const [query, setQuery] = useState("");
   const [categoria, setCategoria ]  = useState("");
+  const [fotos, setFotos] = useState([]);
 
   const fetchData = async ({ query, categoria }) => {
 
@@ -18,8 +19,11 @@ function App() {
     const response = await axios.get('https://api.unsplash.com/photos/random', {
       params: {
         client_id: apiKey,
+        count: 10,
       },
     });
+
+    setFotos(response.data);
 
     console.log(response);
   };
@@ -31,7 +35,7 @@ function App() {
   return (
     <div className="container">
       <Searchbar />
-      <Fotolist />
+      <FotoList fotos={fotos}/>
       <FotoAmpliada />
 
     </div>
