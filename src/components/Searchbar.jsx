@@ -1,6 +1,6 @@
 import React from "react";
 
-const Searchbar = () => {
+const Searchbar = ({ setQuery, setCategoria, setActivateSearch }) => {
 
     const categorias = [
         "Natureza",
@@ -8,24 +8,28 @@ const Searchbar = () => {
         "Tecnologias",
         "Animais",
         "Esportes"
-    ]
+    ];
 
 
 
     return (
-    <div className="search-bar">
-        <input type="text" placeholder="Pesquisar fotos..." />
-        <button>Pesquisar</button>
-        <select>
-            {categorias.map((categoria) => (
+        <div className="search-bar">
+            <input type="text" placeholder="Pesquisar fotos..." onChange={(e) => setQuery(e.target.value)} />
+            <button onClick={() => setActivateSearch(true)}>Pesquisar</button>
+            <select onChange={(e) => {
+                setCategoria(e.target.value);
+                setActivateSearch(true);
 
-                <option key={categoria} value={categoria}>
-                    {categoria}
+            }}>
+                {categorias.map((categoria) => (
 
-                </option>
-            ))}
-        </select>
-    </div>
+                    <option key={categoria} value={categoria}>
+                        {categoria}
+
+                    </option>
+                ))}
+            </select>
+        </div>
     );
 };
 
